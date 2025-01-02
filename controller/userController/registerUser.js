@@ -5,7 +5,7 @@ import { createUser } from "../../queries/userQueries.js";
 
 export default async (req, res, next) => {
     try {
-        console.log(req.body);
+        console.log("1111",req.body);
         
         const { email, password, devices, rationCard, familyMembers } = req.body;
 
@@ -16,7 +16,7 @@ export default async (req, res, next) => {
 
 
         // Save the user
-        const newUser = await createUser({ email, password, devices, rationCard });
+        const newUser = await createUser({ email, password, devices, rationCard ,familyMembers });
 
         
         // Calculate average electricity and water usage
@@ -34,12 +34,12 @@ export default async (req, res, next) => {
             message: "User registered successfully",
             user: newUser,
             usageAverage: newUsageAverage
-        });
+        });  
     } catch (error) {
         console.error(error.message);
         if (error.code === 11000) {
             return res.status(400).json({ message: "Email already exists" });
         }
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: error.message});
     }
 };

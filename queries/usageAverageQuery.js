@@ -8,3 +8,7 @@ export const createUsageAverage = async (usageAverageData) => {
 export const updateUsageAverage = async (userId, updateData) => {
     return await UsageAverage.findOneAndUpdate({ userId }, updateData, { new: true });
 };
+
+export const fetchUsageAverage = async (userId) => {
+    return await UsageAverage.findOne({ userId });
+};
